@@ -1,5 +1,5 @@
 ---
-layout: page_v2
+layout: page_v3
 page_type: module
 title: Yieldmo Synthetic Inventory Module
 description: Yieldmo Synthetic Outstream ads
@@ -16,7 +16,7 @@ vendor_specific: true
 
 This module enables publishers to set up Yieldmo Synthetic Outstream ads on their pages.
 
-If publishers will enable this module and provide placementId and Google Ad Manager ad unit path, this module will create a placement on the page and inject Yieldmo SDK into this placement. Publisher will then need to get a placement id from their Yieldmo account manager (accounts email) and setup corresponding ad units on the GAM ad server.
+If publishers will enable this module and provide placementId, Google Ad Manager ad unit path and also consentManagement configuration, this module will create a placement on the page and inject Yieldmo SDK into this placement. Publisher will then need to get a placement id from their Yieldmo account manager (accounts email) and setup corresponding ad units on the GAM ad server.
 
 ## Integration
 
@@ -31,21 +31,30 @@ gulp build --modules=yieldmoSyntheticInventoryModule,...
 ```js
 pbjs.que.push(function() {
     pbjs.setConfig({
-        yieldmo_synthetic_inventory: {
+        yieldmoSyntheticInventory: {
             placementId: '1234567890',
             adUnitPath: '/1234567/ad_unit_name_used_in_gam'
+        },
+        consentManagement: {
+            ...
         }
     });
 });
 ```
 
-### Configuration Parameters
+### yieldmoSyntheticInventory Configuration Parameters
 
 |Name |Scope |Description | Example| Type
 | :------------ | :------------ | :------------ | :------------ | :------------ |
 |placementId | required | Yieldmo placement ID | '1234567890' | string
 |adUnitPath | required | Google Ad Manager ad unit path | '/6355419/ad_unit_name_used_in_gam' | string
 
+### consentManagement Configuration Parameters
+
+ConsentManagement is a required configuration parameter. This module also must be included in the bundle. More information about ConsentManagement at the links below:
+
+- https://docs.prebid.org/dev-docs/modules/consentManagement.html
+- https://docs.prebid.org/dev-docs/modules/consentManagementUsp.html
 ### How to get ad unit path
 
 Ad unit path follows the format /network-code/[parent-ad-unit-code/.../]ad-unit-code, where:
